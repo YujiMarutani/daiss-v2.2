@@ -1,6 +1,8 @@
 # DAISS v2.2 — Sovereign Intelligence Operating System  
-**Official Frozen Edition (2026‑01‑13)**  
-**DOI:** https://doi.org/10.5281/zenodo.18228048
+## Scientific Verification
+- **Status:** ![CIFF Verification](https://github.com/YujiMarutani/daiss-v2.2/actions/workflows/ciff.yml/badge.svg)
+- **Canonical DOI:** [10.5281/zenodo.18228048](https://doi.org/10.5281/zenodo.18228048) (Always points to the latest version)
+- **Verification Evidence:** [verified_snapshot.yaml](./output/verified_snapshot.yaml)
 
 ## Overview
 DAISS v2.2 is a minimal, self‑starting operating system for sovereign intelligence.  
