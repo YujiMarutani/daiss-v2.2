@@ -131,3 +131,36 @@ class DAISSCore:
             self.step()
         return self.history
 
+# --- Existing DAISSCore implementation above ---
+
+class DAISS_Core_v2_2(DAISSCore):
+    """
+    Official Interface for CIFF / DOI / Zenodo.
+    This class acts as the Canonical Contract for DAISS v2.2.
+    """
+
+    def heartbeat(self, steps=1000):
+        # Execute the research-grade simulation
+        history = self.run(steps)
+
+        # Evaluation based on the stability of persistence (last 200 steps)
+        forks_window = np.array(history["forks"][-200:])
+        mean_forks = float(np.mean(forks_window))
+        last_ternary = history["ternary"][-1]
+
+        # CIFF Acceptance Criteria:
+        # 1. Golden Fluctuation (2.0 - 5.0)
+        # 2. Creativity (+1 ratio >= 15%)
+        # 3. Immunity Control (-1 ratio <= 30%)
+        is_healthy = (
+            2.0 <= mean_forks <= 5.0 and
+            last_ternary["+1"] >= 0.15 and
+            last_ternary["-1"] <= 0.30
+        )
+
+        return {
+            "status": "Healthy" if is_healthy else "Unhealthy",
+            "mean_forks": mean_forks,
+            "ternary": last_ternary,
+            "timestamp": "2026-02-03"
+        }
