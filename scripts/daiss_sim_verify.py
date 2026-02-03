@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 DAISS v2.2 - CIFF Thermodynamic Survival Proof Verifier
+Strictly aligned with DAISS_Core_v2_2
 """
 
 import os
@@ -8,37 +9,40 @@ import sys
 import numpy as np
 import yaml
 
-# Robust Import Logic
+# Path resolution
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 if BASE_DIR not in sys.path:
     sys.path.append(BASE_DIR)
 
+# Import the class name as defined in your daiss_core.py
 try:
-    from daiss_core import DAISSCore
-except ImportError:
-    print("CRITICAL ERROR: daiss_core.py not found.")
+    from daiss_core import DAISS_Core_v2_2
+except ImportError as e:
+    print(f"CRITICAL ERROR: {e}")
     sys.exit(1)
 
 def verify():
     print("Executing DAISS v2.2 Verification...")
-    core = DAISSCore(r=0.14, D=0.38)
-    history = core.run(steps=1000)
     
-    avg_forks = np.mean(history["forks"][-200:])
-    last_dist = history["ternary"][-1]
+    # Matching the class name in your repository
+    core = DAISS_Core_v2_2(r=0.14, D=0.38)
     
-    print(f"Mean Forks: {avg_forks:.2f}")
-    print(f"Final Distribution: {last_dist}")
+    # Use the heartbeat method as defined in your daiss_core.py
+    result = core.heartbeat(steps=1000)
+    
+    print(f"Simulation Status: {result['status']}")
+    print(f"Final Distribution: {result}")
 
-    # Success Criteria (Strict yet realistic)
-    if 1.0 <= avg_forks <= 10.0 and last_dist["+1"] >= 0.10:
+    # Success Criteria
+    if result["status"] == "Healthy":
         print("SUCCESS: Civilizational Stability Verified.")
-        # Create the missing 'output' directory
         os.makedirs("output", exist_ok=True)
         
         snapshot = {
-            "status": "verified",
-            "metrics": {"forks": float(avg_forks), "dist": last_dist}
+            "version": "v2.2",
+            "coordinates": {"r": 0.14, "D": 0.38},
+            "metrics": result,
+            "timestamp": "2026-02-03"
         }
         with open("output/verified_snapshot.yaml", "w") as f:
             yaml.dump(snapshot, f, sort_keys=False)
