@@ -90,3 +90,5 @@ print("Artifacts directory contents:")
 for root, dirs, files in os.walk("artifacts"):
     for name in files:
         print(os.path.join(root, name))
+if __name__ == "__main__":
+    verify_v1_3_protocol()
