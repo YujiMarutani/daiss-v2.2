@@ -86,3 +86,7 @@ def generate_illustrative_plot(current, references, e_thresh, r_thresh):
     plt.savefig("artifacts/plots/v1_3_matrix.png")
     print("Visualization saved to artifacts/plots/v1_3_matrix.png")
 
+print("Artifacts directory contents:")
+for root, dirs, files in os.walk("artifacts"):
+    for name in files:
+        print(os.path.join(root, name))
