@@ -20,5 +20,4 @@ def compute_v1_3_metrics(current_idea, context_history):
         "E_t": E_t,
         "R_t": R_t
     }
-fix: add entropy_utils for CIFF v1.3 protocol
 
